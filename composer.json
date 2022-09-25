@@ -1,17 +1,14 @@
 {
     "require": {
         "php": "^7.4",
-        "illuminate/support": "^8.83",
         "ext-json": "*",
-        "illuminate/container": "^8.83"
+        "illuminate/support": "^8.83",
+        "predis/predis": "^2.0"
     },
     "autoload": {
         "psr-4": {
             "Countries\\": "src/"
-        },
-        "files": [
-            "src/Helpers.php"
-        ]
+        }
     },
     "config": {
         "allow-plugins": {
@@ -20,5 +17,12 @@
     },
     "require-dev": {
         "pestphp/pest": "^1.21"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Countries\\Adapters\\CountriesServiceProvider"
+            ]
+        }
     }
 }

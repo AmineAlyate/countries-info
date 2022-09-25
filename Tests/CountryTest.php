@@ -1,20 +1,30 @@
 <?php
 
-use Illuminate\Support\Collection;
 use Countries\CountryService;
+use Countries\DTO\Country;
+use Countries\Repository\Countries\CountriesRepository;
 
 test('fetch countries test', function () {
-    /** @var Collection $currencies */
-    $currencies = app(CountryService::class)->allCountries();
+    $repository = new CountriesRepository();
+    $countryService = new CountryService($repository);
 
-    expect($currencies instanceof Collection)->toBeTrue();
-    expect($currencies->isNotEmpty())->toBeTrue();
+    $countries = $countryService->getCountries();
+    expect($countries->isNotEmpty())->toBeTrue();
 });
 
 test('fetch country cities', function () {
-    /** @var Collection $cities */
-    $cities = app(CountryService::class)->getCities('MAR');
+    $repository = new CountriesRepository();
+    $countryService = new CountryService($repository);
 
-    expect($cities instanceof Collection)->toBeTrue();
-    expect($cities->isNotEmpty())->toBeTrue();
+    $country = $countryService->getCountryByCode('MAR');
+    expect($country instanceof Country)->toBeTrue();
+    expect(count($country->getCities()) > 0)->toBeTrue();
+});
+
+test('fetch country currency', function () {
+    $repository = new CountriesRepository();
+    $countryService = new CountryService($repository);
+
+    $currency = $countryService->getCurrencyCode('MAR');
+    expect($currency === 'MAD')->toBeTrue();
 });
