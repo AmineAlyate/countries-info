@@ -26,11 +26,11 @@ class CountriesRepository
 
     public function getCountries(): Collection
     {
-        /*$countries = json_decode($this->redis->get(self::COUNTRIES_CACHE_KEY), true);
+        $countries = json_decode($this->redis->get(self::COUNTRIES_CACHE_KEY), true);
 
         if ($countries instanceof Collection && $countries->count() > 0) {
-            //return $countries;
-        }*/
+            return $countries;
+        }
 
         $countries = $this->loadCountries();
 
